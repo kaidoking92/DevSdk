@@ -37,6 +37,11 @@ function findAppBy($criteria) {
 function findCodeBy($criteria) {
     return findBy("./data/codes.db", $criteria);
 }
+
+function findTokenBy($criteria) {
+    return findBy("./data/tokens.db", $criteria);
+}
+
 function findAppByName($name) {
     return findAppBy(['name' => $name]);
 }
@@ -170,6 +175,7 @@ switch(strtok($route, "?")) {
         break;
     case '/token':
         token();
+        break;
     case '/me':
         me();
         break;
