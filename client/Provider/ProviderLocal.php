@@ -56,14 +56,12 @@ class ProviderLocal
 
 	public function getUser($token)
 	{
-		var_dump($token);
 		$context = stream_context_create([
 	        'http' => [
 	            'header' => "Authorization: Bearer {$token['access_token']}"
 	            ]
 	        ]);
 	    $response = file_get_contents("http://server:8080/me", false, $context);
-	    var_dump($response);
 	    $user = json_decode($response, true); 
 
 	    return $user;
