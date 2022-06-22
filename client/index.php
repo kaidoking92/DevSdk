@@ -3,17 +3,22 @@
 namespace client;
 
 require "./Provider/ProviderLocal.php";
+require "./Provider/ProviderTwitter.php";
 
 use Provider\ProviderLocal;
+use Provider\ProviderTwitter;
 
 define('OAUTH_CLIENT_ID', '621f59c71bc35');
 define('OAUTH_CLIENT_SECRET', '621f59c71bc36');
-define('FACEBOOK_CLIENT_ID', '1311135729390173');
-define('FACEBOOK_CLIENT_SECRET', 'fc5e25661fe961ab85d130779357541e');
+define('FACEBOOK_CLIENT_ID', '');
+define('FACEBOOK_CLIENT_SECRET', '');
+define('TWITTER_CLIENT_ID', '');
+define('TWITTER_CLIENT_SECRET', '');
+
 
 function login()
 {
-    $provider = new ProviderLocal('621f59c71bc35', '621f59c71bc36', 'http://localhost:8081/callback');
+    $provider = new ProviderTwitter('TWITTER_CLIENT_ID', 'TWITTER_CLIENT_SECRET', 'http://localhost:8081/tw_callback');
 
     echo '<a href="' . $provider->getAuthorizationUrl() . '">click</a>';
 }
@@ -22,6 +27,12 @@ function login()
 function callback()
 {
     $provider = new ProviderLocal('621f59c71bc35', '621f59c71bc36', 'http://localhost:8081/callback');
+    var_dump($provider->getUser($provider->getToken()));
+}
+
+function twcallback()
+{
+    $provider = new ProviderTwitter('TWITTER_CLIENT_ID', 'TWITTER_CLIENT_SECRET', 'http://localhost:8081/tw_callback');
     var_dump($provider->getUser($provider->getToken()));
 }
 
@@ -62,6 +73,9 @@ switch (strtok($route, "?")) {
         break;
     case '/fb_callback':
         fbcallback();
+        break;
+    case 'tw_callback':
+        twcallback();
         break;
     default:
         http_response_code(404);
