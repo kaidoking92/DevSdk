@@ -2,8 +2,8 @@
 
 define('OAUTH_CLIENT_ID', '621f59c71bc35');
 define('OAUTH_CLIENT_SECRET', '621f59c71bc36');
-define('FACEBOOK_CLIENT_ID', '1311135729390173');
-define('FACEBOOK_CLIENT_SECRET', 'fc5e25661fe961ab85d130779357541e');
+define('FACEBOOK_CLIENT_ID', '');
+define('FACEBOOK_CLIENT_SECRET', '');
 
 function login()
 {
