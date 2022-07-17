@@ -21,3 +21,5 @@ class ProviderDiscord extends Provider
 		parent::__construct($client_id,$client_secret,$provider_uri,$redirect_uri,$token_uri,$user_uri,$scope,$http_method);
 	}
 }
+
+?>
