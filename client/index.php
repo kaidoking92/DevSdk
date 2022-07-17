@@ -7,11 +7,15 @@ require "./Provider/ProviderLocal.php";
 use Provider\ProviderLocal;
 require "./Provider/ProviderFb.php";
 use Provider\ProviderFb;
+require "./Provider/ProviderDiscord.php";
+use Provider\ProviderDiscord;
 
-define('OAUTH_CLIENT_ID', '');
-define('OAUTH_CLIENT_SECRET', '');
-define('FACEBOOK_CLIENT_ID', '');
-define('FACEBOOK_CLIENT_SECRET', '');
+define('OAUTH_CLIENT_ID', '621f59c71bc35');
+define('OAUTH_CLIENT_SECRET', '621f59c71bc36');
+define('FACEBOOK_CLIENT_ID', '1311135729390173');
+define('FACEBOOK_CLIENT_SECRET', 'fc5e25661fe961ab85d130779357541e');
+define('DISCORD_CLIENT_ID', '617316589930414091');
+define('DISCORD_CLIENT_SECRET', 'QQpuH76fjwh8yIX8Tez5kcrpK8mf_nYn');
 
 function login()
 {
@@ -25,20 +29,32 @@ function login()
         $scope=['basic']
     );
     
-    echo '<a href="' . $provider->getAuthorizationUrl() . '">click</a>';
+    echo '<a href="' . $provider->getAuthorizationUrl() . '">click</a><br>';
 
     $providerFB = new ProviderFb(
         $client_id=FACEBOOK_CLIENT_ID,
         $client_secret=FACEBOOK_CLIENT_SECRET,
         $provider_uri='https://www.facebook.com/v2.10/dialog/oauth',
-        $redirect_uri='http://localhost:8081/fbcallback',
+        $redirect_uri='http://localhost:8081/fb_callback',
         $token_uri='https://graph.facebook.com/v2.10/oauth/access_token',
         $user_uri='https://graph.facebook.com/v2.10/me',
         $scope=["public_profile","email"]
     );
     
-    echo '<a href="' . $providerFB->getAuthorizationUrl() . '">click</a>';
+    echo '<a href="' . $providerFB->getAuthorizationUrl() . '">click</a><br>';
 
+    $providerDis = new ProviderDiscord(
+        $client_id=DISCORD_CLIENT_ID,
+        $client_secret=DISCORD_CLIENT_SECRET,
+        $provider_uri='http://discord.com/api/oauth2/authorize',
+        $redirect_uri='http://localhost:8081/dis_callback',
+        $token_uri='https://discord.com/api/oauth2/token',
+        $user_uri='https://discord.com/api/users/@me',
+        $scope=["identify"],
+        $http_method='POST'
+    );
+    
+    echo '<a href="' . $providerDis->getAuthorizationUrl() . '">click</a><br>';
 }
 
 function callback()
@@ -52,7 +68,8 @@ function callback()
         $user_uri='http://server:8080/me',
         $scope=['basic']
     );
-    var_dump($provider->getUser($provider->getToken()));
+    $user = $provider->GetUser($provider->GetToken());
+    echo "Hello, " . $user['firstname'] . " " . $user['lastname'];
 }
 
 function fbcallback()
@@ -66,7 +83,24 @@ function fbcallback()
         $user_uri='https://graph.facebook.com/v2.10/me',
         $scope=["public_profile","email"]
     );
-    var_dump($provider->getUser($provider->getToken()));
+    $user = $provider->GetUser($provider->GetToken());
+    echo "Hello, " . $user['firstname'] . " " . $user['lastname'];
+}
+
+function discallback()
+{ 
+    $provider = new ProviderDiscord(
+        $client_id=DISCORD_CLIENT_ID,
+        $client_secret=DISCORD_CLIENT_SECRET,
+        $provider_uri='http://discord.com/api/oauth2/authorize',
+        $redirect_uri='http://localhost:8081/dis_callback',
+        $token_uri='https://discord.com/api/oauth2/token',
+        $user_uri='https://discord.com/api/users/@me',
+        $scope=["identify"],
+        $http_method='POST'
+    );
+    $user = $provider->GetUser($provider->GetToken());
+    echo "Hello, " . $user['username'];
 }
 
 $route = $_SERVER["REQUEST_URI"];
@@ -79,6 +113,9 @@ switch (strtok($route, "?")) {
         break;
     case '/fb_callback':
         fbcallback();
+        break;
+    case '/dis_callback':
+        discallback();
         break;
     default:
         http_response_code(404);

@@ -2,13 +2,9 @@
 
 namespace Provider;
 
-require "./Provider/Provider.php";
 use Provider\Provider;
 
-/**
- * 
- */
-class ProviderLocal extends Provider
+class ProviderDiscord extends Provider
 {
 	private $client_id;
     private $client_secret;

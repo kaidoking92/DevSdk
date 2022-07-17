@@ -16,9 +16,9 @@ class ProviderFb extends Provider
     private $state;
 
     
-    public function __construct($client_id,$client_secret,$provider_uri,$redirect_uri,$token_uri,$user_uri,array $scope=[]) 
+    public function __construct($client_id,$client_secret,$provider_uri,$redirect_uri,$token_uri,$user_uri,array $scope,$http_method='GET') 
     {
-        parent::__construct($client_id,$client_secret,$provider_uri,$redirect_uri,$token_uri,$user_uri,$scope);
+        parent::__construct($client_id,$client_secret,$provider_uri,$redirect_uri,$token_uri,$user_uri,$scope,$http_method);
     }    
 }
 
