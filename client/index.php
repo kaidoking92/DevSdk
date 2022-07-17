@@ -4,11 +4,14 @@ define('OAUTH_CLIENT_ID', '621f59c71bc35');
 define('OAUTH_CLIENT_SECRET', '621f59c71bc36');
 define('FACEBOOK_CLIENT_ID', '');
 define('FACEBOOK_CLIENT_SECRET', '');
+<<<<<<< HEAD
 
 
 require ('./Provider/ProviderFb.php');
 use Provider\ProviderFb;
 
+=======
+>>>>>>> master
 
 function login()
 {
