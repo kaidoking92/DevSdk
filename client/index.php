@@ -9,6 +9,8 @@ require "./Provider/ProviderFb.php";
 use Provider\ProviderFb;
 require "./Provider/ProviderDiscord.php";
 use Provider\ProviderDiscord;
+require "./Provider/ProviderTwitch.php";
+use Provider\ProviderTwitch;
 
 define('OAUTH_CLIENT_ID', '');
 define('OAUTH_CLIENT_SECRET', '');
@@ -55,6 +57,19 @@ function login()
     );
     
     echo '<a href="' . $providerDis->getAuthorizationUrl() . '">click</a><br>';
+
+    $providerTwitch = new ProviderTwitch(
+        $client_id=Twitch_CLIENT_ID,
+        $client_secret=Twitch_CLIENT_SECRET,
+        $provider_uri='https://id.twitch.tv/oauth2/authorize',
+        $redirect_uri='http://localhost:8081/twitch_callback',
+        $token_uri='https://id.twitch.tv/oauth2/token',
+        $user_uri='https://api.twitch.tv/helix/users',
+        $scope=[""],
+        $http_method='POST'
+    );
+    
+    echo '<a href="' . $providerTwitch->getAuthorizationUrl() . '">click</a><br>';
 }
 
 function callback()
@@ -103,6 +118,21 @@ function discallback()
     echo "Hello, " . $user['username'];
 }
 
+function twitchcallback()
+{ 
+    $providerTwitch = new ProviderTwitch(
+        $client_id=Twitch_CLIENT_ID,
+        $client_secret=Twitch_CLIENT_SECRET,
+        $provider_uri='https://id.twitch.tv/oauth2/authorize',
+        $redirect_uri='http://localhost:8081/twitch_callback',
+        $token_uri='https://id.twitch.tv/oauth2/token',
+        $user_uri='https://api.twitch.tv/helix/users',
+        $scope=[""],
+        $http_method='POST'
+    );
+    $user = $provider->GetUser($provider->GetToken());
+    echo "Hello, " . $user['username'];
+}
 $route = $_SERVER["REQUEST_URI"];
 switch (strtok($route, "?")) {
     case '/login':
@@ -116,6 +146,9 @@ switch (strtok($route, "?")) {
         break;
     case '/dis_callback':
         discallback();
+        break;
+    case '/twitch_callback':
+        twitchcallback();
         break;
     default:
         http_response_code(404);
