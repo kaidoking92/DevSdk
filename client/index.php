@@ -61,8 +61,8 @@ function login()
     echo '<a href="' . $providerDis->getAuthorizationUrl() . '">click</a><br>';
 
     $providerTwitch = new ProviderTwitch(
-        $client_id=Twitch_CLIENT_ID,
-        $client_secret=Twitch_CLIENT_SECRET,
+        $client_id=TWITCH_CLIENT_ID,
+        $client_secret=TWITCH_CLIENT_SECRET,
         $provider_uri='https://id.twitch.tv/oauth2/authorize',
         $redirect_uri='http://localhost:8081/twitch_callback',
         $token_uri='https://id.twitch.tv/oauth2/token',
@@ -123,8 +123,8 @@ function discallback()
 function twitchcallback()
 { 
     $providerTwitch = new ProviderTwitch(
-        $client_id=Twitch_CLIENT_ID,
-        $client_secret=Twitch_CLIENT_SECRET,
+        $client_id=TWITCH_CLIENT_ID,
+        $client_secret=TWITCH_CLIENT_SECRET,
         $provider_uri='https://id.twitch.tv/oauth2/authorize',
         $redirect_uri='http://localhost:8081/twitch_callback',
         $token_uri='https://id.twitch.tv/oauth2/token',
