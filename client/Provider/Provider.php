@@ -77,7 +77,7 @@ abstract class Provider
     {
         $context = stream_context_create([
             'http' => [
-                'method' => 'GET',
+                'method' => $this->http_method,
                 'header' => [
                     'Content-Type: application/x-www-form-urlencoded'
                 ],
