@@ -77,6 +77,9 @@ function auth() {
     $app = findAppBy(["client_id" => $clientId, 'redirect_success' => $redirect]);
     if (!$app) {
         http_response_code(404);
+        echo "404";
+        echo $clientId;
+        echo $redirect;
         return;
     }
     echo "Name: $app[name]<br>";
