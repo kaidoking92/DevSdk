@@ -10,12 +10,12 @@ use Provider\ProviderFb;
 require "./Provider/ProviderDiscord.php";
 use Provider\ProviderDiscord;
 
-define('OAUTH_CLIENT_ID', '621f59c71bc35');
-define('OAUTH_CLIENT_SECRET', '621f59c71bc36');
-define('FACEBOOK_CLIENT_ID', '1311135729390173');
-define('FACEBOOK_CLIENT_SECRET', 'fc5e25661fe961ab85d130779357541e');
-define('DISCORD_CLIENT_ID', '617316589930414091');
-define('DISCORD_CLIENT_SECRET', 'QQpuH76fjwh8yIX8Tez5kcrpK8mf_nYn');
+define('OAUTH_CLIENT_ID', '');
+define('OAUTH_CLIENT_SECRET', '');
+define('FACEBOOK_CLIENT_ID', '');
+define('FACEBOOK_CLIENT_SECRET', '');
+define('DISCORD_CLIENT_ID', '');
+define('DISCORD_CLIENT_SECRET', '');
 
 function login()
 {
